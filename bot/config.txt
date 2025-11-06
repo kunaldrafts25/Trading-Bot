@@ -1,0 +1,28 @@
+# tradingbot configuration
+
+data_file = ../data/nifty50_data.csv
+
+# Initial balance in INR
+initial_balance=100000
+
+# Risk percentage per trade 
+risk_percentage=40.0
+
+# Path to market data CSV file (use a path that works when running from `bot/`)
+data_file_path=../data/nifty50_data.csv
+
+# Symbol to trade
+symbol=NIFTY50
+
+# Moving average periods for strategy
+short_ma_period=7
+long_ma_period=21
+
+# Trading mode: backtest or live
+mode=live 
+
+# Live simulation params
+# Number of synthetic live iterations to run
+live_iterations=100
+# Number of historical points to seed the live simulation (history window)
+live_history_size=250

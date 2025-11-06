@@ -1,0 +1,20 @@
+# Ignore build artefacts from CMake
+/build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+CMakeLists.txt
+# Visual Studio / MSVC / CMake generated project files
+*.vcxproj*
+*.sln
+*.vcxproj.filters
+
+# Generated editor/IDE files
+.vscode/
+/.idea/
+
+# Logs and runtime files
+/logs/
+trading_bot.exe

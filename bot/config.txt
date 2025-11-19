@@ -28,9 +28,11 @@ take_profit_percentage=15.0
 # ============================================================
 
 # Path to market data CSV file
-data_file_path=../data/nifty50_data.csv
 
-# Symbol to trade
+data_file = ../data/nifty50_data.csv
+initial_balance=100000
+risk_percentage=20.0
+data_file_path=../data/nifty50_data.csv
 symbol=NIFTY50
 
 # ============================================================
@@ -52,6 +54,8 @@ rsi_period=14
 # ============================================================
 # TRADING MODE
 # ============================================================
+short_ma_period=10
+long_ma_period=50
 
 # Trading mode: backtest or live
 # backtest = test on historical data
@@ -72,3 +76,9 @@ live_history_size=200
 # Delay between iterations in milliseconds
 # Recommended: 500-2000 for realistic simulation
 live_delay_ms=500
+# Number of historical points to seed the live simulation (history window)
+live_history_size=250
+
+rsi_period=14
+rsi_upper=70
+rsi_lower=30

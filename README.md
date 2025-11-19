@@ -1,4 +1,4 @@
-# Nifty 50 Trading Bot
+# 📉 **Trading-Bot**
 
 A professional-grade C++ trading bot for backtesting and simulating trading strategies on Nifty 50 index data with comprehensive risk management and performance analytics.
 
@@ -204,87 +204,6 @@ Reason: Death Cross detected (MA20=21890.50 < MA50=21920.30, RSI=62.50)
 
 ### Statistics Summary
 ```
-======================================================================
-                     TRADING SUMMARY
-======================================================================
-Total Trades:                 12
-Winning Trades:               5
-Losing Trades:                1
-Win Rate:                     83.33%
-
-Total P/L:                    INR 1494.50
-Average Win:                  INR 567.80
-Average Loss:                 INR 1294.60
-Largest Win:                  INR 3038.40
-Largest Loss:                 INR -1294.60
-
-Profit Factor:                3.29
-Max Drawdown:                 5.45%
-Sharpe Ratio:                 1.82
-======================================================================
-```
-
-## 🔧 Customization
-
-### Adding New Indicators
-1. Add calculation method to `Strategy.cpp`
-2. Include indicator in signal generation logic
-3. Update signal reason strings
-
-### Custom Exit Strategies
-Modify `Strategy::shouldExitPosition()` to add:
-- Trailing stops
-- Time-based exits
-- Volatility-based exits
-
-### Alternative Strategies
-Replace `generateSignal()` logic with:
-- Mean reversion
-- Momentum strategies
-- Breakout strategies
-- Multi-timeframe analysis
-
-## ⚠️ Important Notes
-
-### Backtesting Limitations
-- No slippage simulation
-- No transaction costs
-- Perfect execution assumed
-- Uses close prices (no intraday data)
-- Past performance ≠ future results
-
-### Recommended Settings
-- **Conservative**: risk=2%, stop_loss=5%, take_profit=10%
-- **Moderate**: risk=5-10%, stop_loss=5%, take_profit=15%
-- **Aggressive**: risk=15-20%, stop_loss=7%, take_profit=20%
-
-### Risk Warnings
-⚠️ This is a simulation tool for educational purposes only
-⚠️ Do not use with real money without extensive testing
-⚠️ Always start with paper trading
-⚠️ Understand the risks of algorithmic trading
-
-## 📚 Further Development
-
-### Potential Enhancements
-- [ ] Multi-symbol support
-- [ ] Machine learning integration
-- [ ] Real-time market data feed integration
-- [ ] Web dashboard for monitoring
-- [ ] Database storage for historical trades
-- [ ] Parameter optimization (walk-forward analysis)
-- [ ] Monte Carlo simulation
-- [ ] Order book simulation
-- [ ] Execution delay simulation
-- [ ] Transaction cost modeling
-
-## 📄 License
-
-This project is provided as-is for educational purposes.
-
-## 🤝 Contributing
-
-Contributions welcome! Please test thoroughly before submitting PRs.
 
 ---
 

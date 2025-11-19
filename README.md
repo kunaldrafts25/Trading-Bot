@@ -1,179 +1,210 @@
 # 📉 **Trading-Bot**
 
-> ⚙️ *A lightweight C++ trading bot for backtesting and simulating trading strategies on the Nifty 50 index (or any suitable OHLCV data).*
+A professional-grade C++ trading bot for backtesting and simulating trading strategies on Nifty 50 index data with comprehensive risk management and performance analytics.
 
----
+## 🚀 Features
 
-## 🚀 **Features**
+### Core Functionality
+- **Market Data Handler**: Robust CSV parsing with validation and error handling
+- **Advanced Trading Strategy**: Moving Average Crossover with RSI filter and risk controls
+- **Risk Management**: 
+  - Dynamic position sizing based on account balance
+  - Maximum exposure limits
+  - Stop-loss and take-profit orders
+- **Broker Simulator**: 
+  - Realistic order execution
+  - Portfolio tracking with unrealized P/L
+  - Average entry price calculation for multiple buys
+- **Comprehensive Trade Logging**: 
+  - Detailed trade history with reasons
+  - Advanced performance metrics (Sharpe Ratio, Max Drawdown, Profit Factor)
+  - CSV export for analysis
+- **Dual Mode Operation**: 
+  - Backtest on historical data
+  - Live simulation with synthetic market data
 
-* 🧠 **Market Data Handler** – Loads historical OHLCV data from CSV.
-* 📈 **Strategy Module** – Implements a *Moving Average Crossover* strategy combined with an *RSI filter*.
-* 💰 **Risk Manager** – Controls position sizing and exposure limits.
-* 🏦 **Broker Simulator** – Simulates order execution and portfolio management.
-* 🦾 **Trade Logger** – Logs executed trades and computes performance statistics.
-* 🔁 **Dual Mode** – Supports both **Backtest** and **Live Simulation** modes.
+### Performance Metrics
+- Total/Winning/Losing trades
+- Win rate percentage
+- Average win/loss amounts
+- Largest win/loss
+- Profit factor (gross profit / gross loss)
+- Maximum drawdown percentage
+- Sharpe ratio (risk-adjusted returns)
 
----
-
-## 📁 **Project Structure**
+## 📁 Project Structure
 
 ```
-Trading-Bot/
-├── bot/                    # Core source files and headers
-│   ├── main.cpp
-│   ├── Config.cpp / Config.h
-│   ├── MarketDataHandler.cpp / MarketDataHandler.h
-│   ├── Strategy.cpp / Strategy.h
-│   ├── RiskManager.cpp / RiskManager.h
-│   ├── BrokerSimulator.cpp / BrokerSimulator.h
-│   ├── TradeLogger.cpp / TradeLogger.h
-│   └── Types.h
-│
-├── data/                   # Example data input
-│   └── nifty50_data.csv
-│
-├── logs/                   # Generated output logs
-│   └── trades.csv
-│
-├── config.txt              # Configuration file
-├── README.md               # (this file)
+nifty50-trading-bot/
+├── bot/                       # Source files
+│   ├── main.cpp              # Main entry point with TradingEngine
+│   ├── Config.cpp/h          # Configuration management with validation
+│   ├── MarketDataHandler.cpp/h   # CSV data loading and live data generation
+│   ├── Strategy.cpp/h        # Trading strategy with MA crossover and RSI
+│   ├── RiskManager.cpp/h     # Position sizing and risk controls
+│   ├── BrokerSimulator.cpp/h # Order execution and portfolio management
+│   ├── TradeLogger.cpp/h     # Trade logging and statistics
+│   └── Types.h               # Common data structures and enums
+├── data/
+│   └── nifty50_data.csv      # Historical OHLCV data
+├── logs/                      # Generated log files
+│   ├── trades.csv            # Backtest trade log
+│   └── live_trades.csv       # Live simulation trade log
+├── config.txt                 # Configuration file
+├── README.md
 └── .gitignore
 ```
 
----
+## 🛠️ Build & Run
 
-## 🛠️ **Build & Run**
+### Prerequisites
+- C++17 compatible compiler (g++, clang, MSVC)
+- Standard C++ library with threading support
 
-### **Requirements**
+### Quick Start - Direct Compilation
 
-* 🧩 C++17 (or later) compiler (GCC, Clang, or MinGW/MSYS2).
-* ⚡ Standard library support (no external dependencies).
+**Windows (PowerShell/CMD):**
+```powershell
+cd bot
+g++ -std=c++17 -O2 *.cpp -o trading_bot.exe
+.\trading_bot.exe              # Run backtest (default)
+.\trading_bot.exe --live       # Run live simulation
+```
 
----
-
-### **Build & Execute**
-
-#### 🪟 **Windows (PowerShell)**
-
+**Linux / macOS:**
 ```bash
-g++ -std=c++17 *.cpp -o trading_bot.exe
-.\trading_bot.exe            # Run in back-test mode
-.\trading_bot.exe --live     # Run in live simulation mode
+cd bot
+g++ -std=c++17 -O2 *.cpp -o trading_bot
+./trading_bot                  # Run backtest (default)
+./trading_bot --live           # Run live simulation
 ```
 
-#### 🐧 **Linux / macOS**
-
+### Command Line Options
 ```bash
-g++ -std=c++17 *.cpp -o trading_bot
-./trading_bot              # Back-test mode
-./trading_bot --live       # Live simulation mode
+./trading_bot                  # Use mode from config.txt
+./trading_bot --backtest       # Force backtest mode
+./trading_bot --live           # Force live simulation mode
+./trading_bot --config custom.txt  # Use custom config file
 ```
 
-💡 *You can also integrate this project with CMake or an IDE if preferred.*
-
----
-
-## ⚙️ **Configuration (config.txt)**
-
-Example:
-
-```
-initial_balance=100000
-risk_percentage_per_trade=2
-short_ma_period=10
-long_ma_period=50
-rsi_period=14
-rsi_upper=70
-rsi_lower=30
-mode=backtest
-data_filepath=data/nifty50_data.csv
+### Build Optimization Flags
+For production use, compile with optimizations:
+```bash
+g++ -std=c++17 -O3 -march=native -DNDEBUG *.cpp -o trading_bot
 ```
 
----
+## ⚙️ Configuration
 
-## 📄 **Data Format**
+Edit `config.txt` to customize trading parameters:
 
-Your CSV file should look like this:
-
+### Capital Management
+```ini
+initial_balance=100000        # Starting capital in INR
+risk_percentage=10.0          # Capital allocation per trade (%)
+max_exposure=80.0             # Max portfolio exposure (%)
+stop_loss_percentage=5.0      # Stop loss threshold (%)
+take_profit_percentage=15.0   # Take profit target (%)
 ```
+
+### Strategy Parameters
+```ini
+short_ma_period=20           # Short-term MA period (days)
+long_ma_period=50            # Long-term MA period (days)
+rsi_period=14                # RSI calculation period (days)
+```
+
+### Mode Selection
+```ini
+mode=backtest                # backtest or live
+```
+
+### Live Simulation Settings
+```ini
+live_iterations=100          # Number of ticks to simulate
+live_history_size=200        # Historical data points for context
+live_delay_ms=500           # Delay between ticks (ms)
+```
+
+## 📊 Data Format
+
+CSV file must have the following format:
+```csv
 Date,Open,High,Low,Close,Volume
-2024-01-01,21500.50,21650.75,21480.25,21620.50,125000000
+2024-01-01,21727.75,21834.35,21680.85,21741.90,154000000
+2024-01-02,21751.35,21755.60,21555.65,21665.80,263710000
 ```
 
-✅ Ensure:
+**Data Requirements:**
+- Header row required
+- Date format: YYYY-MM-DD (or any consistent format)
+- Prices: Decimal numbers
+- Volume: Integer
+- OHLC validation: High ≥ Low, High ≥ Open, High ≥ Close, Low ≤ Open, Low ≤ Close
 
-* Chronologically sorted data
-* No missing or corrupted entries
+## 📈 Trading Strategy
 
----
+### Moving Average Crossover with RSI Filter
 
-## 📊 **Trading Strategy**
+**BUY Signal:**
+- Short MA crosses above Long MA (Golden Cross)
+- RSI < 70 (not overbought)
+- No existing position
 
-**Moving Average Crossover + RSI Filter**
+**SELL Signal:**
+- Short MA crosses below Long MA (Death Cross)
+- RSI > 30 (not oversold)
+- Has existing position
 
-| Signal Type | Condition                                                                     |
-| ----------- | ----------------------------------------------------------------------------- |
-| 🟢 **BUY**  | Short MA crosses above Long MA *(Golden Cross)* **AND** RSI < Upper Threshold |
-| 🔴 **SELL** | Short MA crosses below Long MA *(Death Cross)* **AND** RSI > Lower Threshold  |
-| 🟡 **HOLD** | Neither condition met                                                         |
+**Risk Management Exits:**
+- Stop Loss: Position closed if loss exceeds configured percentage
+- Take Profit: Position closed if profit reaches target percentage
 
----
+**HOLD:**
+- No crossover detected
+- RSI in extreme zones
+- Exposure limits reached
 
-## ✅ **Why Use This Bot?**
+## 🎯 Key Improvements Over Original
 
-* ⚡ **Fast:** Built in C++ for high performance.
-* 🧩 **Customizable:** Plug in your own strategy or indicator.
-* 🎓 **Educational:** Perfect for learning trading algorithms, backtesting, and portfolio control.
-* 🚀 **Extensible:** Can be expanded to support multiple instruments, APIs, or real-time trading feeds.
+### 1. **Fixed Critical Issues**
+- ✅ Corrected risk management calculation (was allocating 40% per trade!)
+- ✅ Fixed look-ahead bias in backtesting
+- ✅ Improved CSV parsing with proper error handling
+- ✅ Fixed position management edge cases
 
----
+### 2. **Enhanced Features**
+- ✅ Stop-loss and take-profit orders
+- ✅ Better crossover detection (handles exact crosses)
+- ✅ Detailed trade reasons in logs
+- ✅ Unrealized P/L tracking for open positions
+- ✅ Advanced performance metrics (Sharpe, Drawdown, Profit Factor)
 
-## 🥪 **How to Extend**
+### 3. **Code Quality**
+- ✅ Comprehensive error handling with try-catch blocks
+- ✅ Configuration validation
+- ✅ Unified TradingEngine class (DRY principle)
+- ✅ Better data validation
+- ✅ Improved random number generation for live simulation
 
-💡 Ideas for next-level upgrades:
+### 4. **User Experience**
+- ✅ Detailed progress reporting
+- ✅ Clear trade execution logs with reasons
+- ✅ Professional summary statistics
+- ✅ Better configuration with comments
+- ✅ Command-line argument support
 
-* 🔍 Replace **Strategy.cpp** with a momentum, mean-reversion, or ML-based algorithm.
-* 🔗 Connect **BrokerSimulator** to a live broker API (like Zerodha, Fyers, etc.).
-* 📡 Expand **MarketDataHandler** for streaming or multi-asset data.
-* 📊 Add performance metrics like **Sharpe Ratio, Max Drawdown**, etc.
-* 🥮 Implement **Portfolio Optimization** and **Event-Driven Architecture**.
+## 📝 Output Examples
 
----
+### Trade Execution
+```
+[2024-03-18] SELL executed: 2 shares @ INR 22055.70 | Total: INR 44111.40 | 
+P/L: INR 568.00 (1.30%) | Balance: INR 100568.00 | 
+Reason: Death Cross detected (MA20=21890.50 < MA50=21920.30, RSI=62.50)
+```
 
-## ⚠️ **Important Notes**
-
-> ⚠️ **Disclaimer:**
-> This repository is for **educational and development purposes only**.
-> Past performance does **not guarantee future results**.
-
-* Backtesting ≠ Real trading.
-* Clean and unbiased data is critical.
-* Always test thoroughly before live deployment.
-
----
-
-## 🔧 **Prerequisites & Dependencies**
-
-* ✅ C++17 (or newer)
-* 📁 CSV data file in standard OHLCV format
-* 🌐 Optional: API integration for live mode (to be implemented manually)
-
----
-
-## 📚 **License & Contribution**
-
-* 🔄 Feel free to fork, modify, and submit pull requests!
-* 🐞 Report issues or suggest improvements in the GitHub *Issues* tab.
-
----
-
-## 📬 **Contact & Support**
-
-👤 **Kunal Singh**
-
-📧 **Email:** [kunalsingh2514@gmail.com](mailto:kunalsingh2514@gmail.com)
-🌐 **GitHub:** [github.com/kunaldrafts25](https://github.com/kunaldrafts25)
-💬 **LinkedIn:** [linkedin.com/in/kunalsingh25](https://linkedin.com/in/kunalsinghh25)
+### Statistics Summary
+```
 
 ---
 
+**Disclaimer**: This software is for educational and research purposes only. It should not be used for actual trading without proper testing, risk assessment, and professional financial advice.

@@ -1,17 +1,81 @@
+# Nifty 50 Trading Bot Configuration File
+
+# ============================================================
+# CAPITAL MANAGEMENT
+# ============================================================
+
+# Initial balance in INR
+initial_balance=100000
+
+# Risk percentage per trade (capital allocation, not risk of loss)
+# Recommended: 2-5% for conservative, 10-20% for moderate
+risk_percentage=10.0
+
+# Maximum portfolio exposure (% of capital in open positions)
+# Recommended: 60-80%
+max_exposure=80.0
+
+# Stop loss percentage (exit if position loses this %)
+# Recommended: 3-10%
+stop_loss_percentage=5.0
+
+# Take profit percentage (exit if position gains this %)
+# Recommended: 8-20%
+take_profit_percentage=15.0
+
+# ============================================================
+# DATA SOURCE
+# ============================================================
+
+# Path to market data CSV file
 
 data_file = ../data/nifty50_data.csv
 initial_balance=100000
 risk_percentage=20.0
 data_file_path=../data/nifty50_data.csv
 symbol=NIFTY50
+
+# ============================================================
+# STRATEGY PARAMETERS
+# ============================================================
+
+# Short-term moving average period (days)
+# Recommended: 10-20 for responsive, 20-30 for smooth
+short_ma_period=20
+
+# Long-term moving average period (days)
+# Recommended: 50-100 for trend following
+long_ma_period=50
+
+# RSI period (days)
+# Standard: 14
+rsi_period=14
+
+# ============================================================
+# TRADING MODE
+# ============================================================
 short_ma_period=10
 long_ma_period=50
 
 # Trading mode: backtest or live
-mode=live 
+# backtest = test on historical data
+# live = simulate real-time trading with synthetic data
+mode=live
+
+# ============================================================
+# LIVE SIMULATION PARAMETERS
+# (Only used when mode=live)
+# ============================================================
 
 # Number of synthetic live iterations to run
 live_iterations=100
+
+# Number of historical points to seed the live simulation
+live_history_size=200
+
+# Delay between iterations in milliseconds
+# Recommended: 500-2000 for realistic simulation
+live_delay_ms=500
 # Number of historical points to seed the live simulation (history window)
 live_history_size=250
 
